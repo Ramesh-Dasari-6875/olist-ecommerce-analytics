@@ -65,3 +65,10 @@ Checks are in `sql/02\_data\_quality\_checks.sql`.
 - Revenue is diversified across categories: the top 10 categories make up 62.4% and none exceeds 9.3%.
 - Recommendation: growth outside the southeast is the largest untapped opportunity, so test regional marketing and faster logistics for the North and Northeast.
 
+## Key Findings: Customers (RFM)
+
+- Only 3.0% of customers (2,888 of 94,990) purchased more than once.
+- The top 40% of customers by spend (avg about R$268) generate 71.2% of revenue; repeat buyers generate only 5.6%.
+- The largest segment by revenue is high-value one-time buyers who have not returned (22.2% of customers, 42.0% of revenue).
+- Recommendation: test a second-purchase campaign (e.g. post-delivery coupons) aimed at high-value one-time buyers, since a small lift in repeat rate would affect a large share of revenue.
+
