@@ -26,7 +26,7 @@ GROUP BY 1
 ORDER BY 1;
 
 
---review score by how many days late
+-- B. review score by how many days late
 WITH latest_review AS (
     SELECT DISTINCT ON (order_id) order_id, review_score
     FROM order_reviews
@@ -49,3 +49,36 @@ FROM delivered d
 JOIN latest_review r USING (order_id)
 GROUP BY 1
 ORDER BY 1;
+
+-- C. Late delivery rate and review score by customer state (states with 500+ orders)
+WITH latest_review AS (
+    SELECT DISTINCT ON (order_id) order_id, review_score
+    FROM order_reviews
+    ORDER BY order_id, review_answer_timestamp DESC
+)
+SELECT c.customer_state,
+       COUNT(*) AS orders,
+       ROUND(100.0 * COUNT(*) FILTER (WHERE o.order_delivered_customer_date > o.order_estimated_delivery_date) / COUNT(*), 1) AS pct_late,
+       ROUND(AVG(o.order_delivered_customer_date::date - o.order_purchase_timestamp::date), 1) AS avg_delivery_days,
+       ROUND(AVG(r.review_score), 2) AS avg_review_score
+FROM orders o
+JOIN customers c USING (customer_id)
+JOIN latest_review r USING (order_id)
+WHERE o.order_status = 'delivered'
+  AND o.order_delivered_customer_date IS NOT NULL
+GROUP BY 1
+HAVING COUNT(*) >= 500
+ORDER BY pct_late DESC;
+
+-- D. Sellers with the highest late rate (sellers with 50+ orders)
+SELECT oi.seller_id,
+       COUNT(DISTINCT o.order_id) AS orders,
+       ROUND(100.0 * COUNT(DISTINCT o.order_id) FILTER (WHERE o.order_delivered_customer_date > o.order_estimated_delivery_date) / COUNT(DISTINCT o.order_id), 1) AS pct_late
+FROM orders o
+JOIN order_items oi USING (order_id)
+WHERE o.order_status = 'delivered'
+  AND o.order_delivered_customer_date IS NOT NULL
+GROUP BY 1
+HAVING COUNT(DISTINCT o.order_id) >= 50
+ORDER BY pct_late DESC
+LIMIT 10;
