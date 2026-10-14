@@ -72,3 +72,29 @@ Checks are in `sql/02\_data\_quality\_checks.sql`.
 - The largest segment by revenue is high-value one-time buyers who have not returned (22.2% of customers, 42.0% of revenue).
 - Recommendation: test a second-purchase campaign (e.g. post-delivery coupons) aimed at high-value one-time buyers, since a small lift in repeat rate would affect a large share of revenue.
 
+## Key Findings: Retention
+
+- Monthly cohort analysis (Jan 2017 to Aug 2018) shows month-1 retention between 0.2% and 0.7%.
+- Returning customers arrive at a steady low rate in later months rather than decaying, and retention did not improve as the business grew.
+- The Nov 2017 (Black Friday) cohort was the largest (7,190 customers) but retained only 0.56% in month 1 and 0.11% by month 6.
+- Conclusion: growth came almost entirely from acquiring new customers, not from repeat purchases.
+- Note: zeros in recent cohorts reflect months not yet observed, not zero retention.
+
+
+## Key Findings: Delivery and Reviews
+
+- 8.0% of delivered orders arrived after the estimated date.
+- Late orders average 2.57 stars vs. 4.29 for on-time orders, and 54.1% of late orders get a 1-2 star review (vs. 9.2%).
+- Review scores fall as delays grow: 3.29 (1-3 days late), 2.10 (4-7 days), 1.70 (8+ days).
+- Recommendation: prioritise logistics fixes for the 4.7% of orders that arrive 4+ days late, and set more realistic delivery estimates, since even short delays cost about a full review point.
+- Note: reviews are association, not proof of cause, and only reviewing customers are included.
+
+## Key Findings: Where Delivery Fails
+
+- Late delivery rates vary widely by state: MA 19.2%, CE 15.2%, BA 13.7% and RJ 13.3%, versus SP 5.8% and PR 4.9%.
+- Average delivery time ranges from 8.7 days in SP to 21 to 24 days in MA, CE and PA. Review scores are lower in the slowest states (3.83 in MA vs 4.25 in SP).
+- RJ is the second-largest revenue state but has a late rate more than double SP's.
+- The 10 worst sellers (50+ orders) are late 21% to 30% of the time, versus an 8.0% platform average.
+- Recommendation: (1) set seller performance thresholds and review the worst sellers, (2) improve carrier coverage and delivery estimates in RJ, BA, CE and MA.
+- Note: late = delivered after the estimated date; seller and carrier delays are not separated.
+
